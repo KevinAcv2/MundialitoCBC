@@ -1,0 +1,377 @@
+/* ========================================================================
+   VARIABLES DE COLOR Y TIPOGRAFÍA
+   =======================================================================*/
+:root {
+  --dark: #1A1E25;
+  --dark-rgba: rgba(26, 30, 37, 0.85);
+  --primary: #0066B1;    /* azul SENA */
+  --accent:  #F7941D;    /* naranja */
+  --light:  #f8f9fa;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --radius: 8px;
+  --space-1: .5rem;
+  --space-2: 1rem;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--light);
+  background-color: var(--dark);
+  margin: 0;
+}
+
+/* ========================================================================
+   NAVBAR
+   =======================================================================*/
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent !important;
+  transition: background-color .3s ease, box-shadow .3s ease;
+  padding: var(--space-1) 0;
+}
+
+.navbar.scrolled {
+  background-color: var(--dark-rgba) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+}
+
+/* Corrige el color de enlaces en el nav */
+.navbar .nav-link {
+  color: var(--light) !important;
+  transition: color .2s;
+}
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--accent) !important;
+}
+
+/* ========================================================================
+   HERO SECTION
+   =======================================================================*/
+.hero-section {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1920&q=80')
+              center / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0; /* shorthand top/right/bottom/left */
+  background: rgba(0, 0, 0, .55);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+  margin-top: 60px; /* deja espacio para el navbar */
+  color: var(--light);
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: var(--space-1);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 3vw, 1.35rem);
+  font-weight: 400;
+  opacity: .9;
+}
+
+/* ========================================================================
+   CONTENIDO PRINCIPAL
+   =======================================================================*/
+.main-content {
+  background: var(--dark);
+  padding: calc(var(--space-2) * 3) 0;
+  position: relative;
+  z-index: 3;
+}
+
+/* ========================================================================
+   TABLAS (Posiciones, Goleadores, etc.)
+   =======================================================================*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-2) 0;
+  background: #222; /* contraste sobre fondo oscuro */
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: #1df753;
+}
+
+
+thead th {
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
+th,
+td {
+  padding: .75rem;
+  border: 1px solid #333;
+  text-align: center;
+  font-size: .9rem;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #282c34;
+}
+
+tbody tr:hover {
+  background-color: #2f3642;
+}
+
+/* Columnas numéricas más angostas en móviles */
+@media (max-width: 576px) {
+  th:nth-child(3),
+  td:nth-child(3),
+  th:nth-child(4),
+  td:nth-child(4),
+  th:nth-child(5),
+  td:nth-child(5),
+  th:nth-child(6),
+  td:nth-child(6),
+  th:nth-child(7),
+  td:nth-child(7),
+  th:nth-child(8),
+  td:nth-child(8),
+  th:nth-child(9),
+  td:nth-child(9),
+  th:nth-child(10),
+  td:nth-child(10) {
+    font-size: .75rem;
+    padding: .5rem .25rem;
+  }
+}
+
+/* ========================================================================
+   FIXTURE / PARTIDOS
+   =======================================================================*/
+.fixture-item { margin-bottom: var(--space-2); }
+
+.fixture-card {
+  background: #fff;
+  color: #212529;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  height: 100%;
+  border: 1px solid #e0e0e0;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.fixture-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,.15);
+}
+
+.fixture-date {
+  font-size: .9rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.fixture-stage {
+  font-size: .8rem;
+  color: #6c757d;
+  border-bottom: 1px solid #eee;
+  padding-bottom: .5rem;
+  margin-bottom: 1rem;
+}
+
+.fixture-teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.fixture-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+}
+
+.fixture-team img {
+  width: 50px;
+  height: 35px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: .5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.fixture-team-name {
+  font-weight: 600;
+  font-size: .9rem;
+}
+
+.fixture-vs {
+  font-weight: 800;
+  color: var(--accent);
+  font-size: 1.1rem;
+  width: 10%;
+  text-align: center;
+}
+
+.fixture-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: .85rem;
+  color: #6c757d;
+  border-top: 1px solid #eee;
+  padding-top: .75rem;
+}
+
+.fixture-info span {
+  display: flex;
+  align-items: center;
+}
+
+.fixture-info i { margin-right: .25rem; color: var(--primary); }
+
+/* ---------------------- Filtros ----------------------*/
+.match-filters {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: .75rem;
+}
+.match-filters .btn-group { flex-wrap: wrap; gap: .25rem; }
+.match-filters .btn {
+  font-size: .8rem;
+  padding: .25rem .75rem;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--light);
+  border: 1px solid var(--primary);
+  transition: background .2s, color .2s;
+}
+.match-filters .btn:hover,
+.match-filters .btn.active {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* ========================================================================
+   CARDS GENERALES (Goleadores, etc.)
+   =======================================================================*/
+.card {
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.card-header.bg-primary {
+  background-color: var(--primary) !important;
+}
+
+/* ========================================================================
+   FOOTER
+   =======================================================================*/
+.footer {
+  background-color: #111;
+  color: #ccc;
+  padding: var(--space-2) 0;
+}
+
+.footer a { color: #ccc; transition: color .2s; }
+.footer a:hover { color: var(--primary); }
+
+.footer img { filter: brightness(0) invert(1); }
+
+/* ========================================================================
+   RESPONSIVE AJUSTES
+   =======================================================================*/
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.25rem; }
+  .hero-subtitle { font-size: 1rem; }
+
+  .fixture-team img { width: 40px; height: 30px; }
+  .fixture-vs     { font-size: 1rem; }
+  .fixture-info   { flex-direction: column; gap: .5rem; }
+}
+
+.btn-editar, .btn-eliminar, .btn-agregar {
+    transition: all 0.2s ease;
+}
+
+.btn-editar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-eliminar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.btn-agregar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}
+
+/* Estilos para los botones de acción */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    width: 40px; /* Ancho fijo para consistencia */
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Asegura que las columnas de acciones no sean muy anchas */
+th:nth-last-child(2),
+th:nth-last-child(1),
+td:nth-last-child(2),
+td:nth-last-child(1) {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+/* Estilo para el botón de agregar */
+.btn-agregar {
+    margin-top: 20px;
+}
+
+.btn-img-action {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.btn-img-action img {
+  width: 100%;
+  height: auto;
+}
+
