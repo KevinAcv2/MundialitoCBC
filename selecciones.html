@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Equipos participantes en el Mundialito CBC - Torneo interdisciplinario del SENA">
+  <title>Selecciones | Mundialito CBC</title>
+
+  <!-- Preconexiones para mejorar performance -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <!-- Hojas de estilo -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0066B1;
+      --secondary: #F7941D;
+      --dark: #1A1A1A;
+      --light: #F8F9FA;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--dark);
+      background-color: #1A1A1A;
+
+    }
+
+    .filtro {
+      margin-bottom: 20px;
+    }
+
+    #busqueda {
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+
+
+    .navbar-transparent {
+      background-color: rgba(0, 0, 0, 0.7);
+      transition: background-color 0.3s ease;
+      background: transparent !important;
+      position: static;
+
+    }
+
+    .navbar-transparent.scrolled {
+      background-color: var(--primary);
+    }
+
+    .hero-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 4rem 0;
+      background: transparent !important;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .group-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+
+    .group-header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 1.5rem;
+      font-weight: 700;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .group-header i {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    .team-card {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover {
+      background-color: #f9f9f9;
+      transform: translateY(-3px);
+    }
+
+    .team-flag {
+      width: 60px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-right: 15px;
+    }
+
+    .team-info {
+      flex: 1;
+    }
+
+    .team-name {
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .team-center {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .team-points {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.1rem;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .group-teams {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    @media (max-width: 768px) {
+      .group-teams {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    .footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 3rem 0;
+    }
+
+    .social-icons a {
+      color: white;
+      margin-left: 15px;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-transparent fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" aria-label="Ir al inicio">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Sena_Colombia_logo.svg" alt="Logo SENA"
+          width="120" height="40">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="selecciones.html" aria-current="page">Selecciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fases.html">Fases</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contacto.html">Contacto</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <h1 class="hero-title">SELECCIONES</h1>
+      <p class="hero-subtitle">32 equipos representando países del mundo y centros de formación del SENA</p>
+    </div>
+  </section>
+
+  <!-- Barra de busqueda -->
+  <div class="filtro">
+    <input type="text" id="busqueda" placeholder="Buscar por nombre, ficha o grupo">
+  </div>
+
+  <!-- Teams Section Cards-->
+  <section class="container py-5" id="contenedor-cards">
+    <!-- Grupo A -->
+    <div class="group-container" data-aos="fade-up">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo A
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/br.png" alt="Brasil" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Brasil</div>
+            <div class="team-center">Centro de Automatización Industrial</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ar.png" alt="Argentina" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Argentina</div>
+            <div class="team-center">Centro de Diseño e Innovación</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/fr.png" alt="Francia" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Francia</div>
+            <div class="team-center">Centro de Manufactura en Textiles</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/de.png" alt="Alemania" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Alemania</div>
+            <div class="team-center">Centro de Electricidad y Electrónica</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo B -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="100">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo B
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/es.png" alt="España" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">España</div>
+            <div class="team-center">Centro de Logística y Transporte</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/pt.png" alt="Portugal" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Portugal</div>
+            <div class="team-center">Centro de Tecnologías de la Información</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/be.png" alt="Bélgica" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Bélgica</div>
+            <div class="team-center">Centro de Gastronomía y Turismo</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/nl.png" alt="Holanda" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Holanda</div>
+            <div class="team-center">Centro de Agricultura y Pecuario</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo C -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="200">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo C
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/gb-eng.png" alt="Inglaterra" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Inglaterra</div>
+            <div class="team-center">Centro de Idiomas</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/it.png" alt="Italia" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Italia</div>
+            <div class="team-center">Centro de Moda y Diseño</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ua.png" alt="Ucrania" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Ucrania</div>
+            <div class="team-center">Centro de Soldadura</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/pl.png" alt="Polonia" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Polonia</div>
+            <div class="team-center">Centro de Construcción</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo D -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="300">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo D
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/uy.png" alt="Uruguay" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Uruguay</div>
+            <div class="team-center">Centro de Deporte y Recreación</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/cl.png" alt="Chile" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Chile</div>
+            <div class="team-center">Centro Minero</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/co.png" alt="Colombia" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Colombia</div>
+            <div class="team-center">Centro Agroindustrial</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/pe.png" alt="Perú" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Perú</div>
+            <div class="team-center">Centro de Joyería</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo E -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="400">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo E
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/mx.png" alt="México" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">México</div>
+            <div class="team-center">Centro de Plásticos</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/us.png" alt="Estados Unidos" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Estados Unidos</div>
+            <div class="team-center">Centro de Mecatrónica</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ca.png" alt="Canadá" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Canadá</div>
+            <div class="team-center">Centro de Energías Renovables</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/jp.png" alt="Japón" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Japón</div>
+            <div class="team-center">Centro de Automoción</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo F -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="500">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo F
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/kr.png" alt="Corea del Sur" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Corea del Sur</div>
+            <div class="team-center">Centro de Telecomunicaciones</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ir.png" alt="Irán" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Irán</div>
+            <div class="team-center">Centro de Petróleo y Gas</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/sa.png" alt="Arabia Saudita" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Arabia Saudita</div>
+            <div class="team-center">Centro de Hotelería</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/au.png" alt="Australia" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Australia</div>
+            <div class="team-center">Centro Marítimo</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo G -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="600">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo G
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ng.png" alt="Nigeria" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Nigeria</div>
+            <div class="team-center">Centro de Salud</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/sn.png" alt="Senegal" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Senegal</div>
+            <div class="team-center">Centro de Belleza</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ma.png" alt="Marruecos" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Marruecos</div>
+            <div class="team-center">Centro de Artesanías</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/eg.png" alt="Egipto" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Egipto</div>
+            <div class="team-center">Centro de Arqueología</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo H -->
+    <div class="group-container" data-aos="fade-up" data-aos-delay="700">
+      <div class="group-header">
+        <i class="fas fa-trophy"></i> Grupo H
+      </div>
+      <div class="group-teams">
+        <!-- Equipo 1 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/cm.png" alt="Camerún" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Camerún</div>
+            <div class="team-center">Centro Forestal</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 2 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/gh.png" alt="Ghana" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Ghana</div>
+            <div class="team-center">Centro de Joyería</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 3 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/ci.png" alt="Costa de Marfil" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Costa de Marfil</div>
+            <div class="team-center">Centro de Cafés Especiales</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+
+        <!-- Equipo 4 -->
+        <div class="team-card d-flex align-items-center">
+          <img src="https://flagcdn.com/w80/za.png" alt="Sudáfrica" class="team-flag">
+          <div class="team-info">
+            <div class="team-name">Sudáfrica</div>
+            <div class="team-center">Centro de Diamante y Gemología</div>
+          </div>
+          <div class="team-points">0</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Sena_Colombia_logo.svg" alt="Logo SENA"
+            width="120" height="40">
+          <p class="mb-0 mt-2">Mundialito CBC - SENA<br>© 2024 Todos los derechos reservados</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="social-icons">
+            <a href="#" class="text-white me-3" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="text-white me-3" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="text-white me-3" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-white" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inicialización AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+        easing: 'ease-in-out'
+      });
+
+      // Cambiar navbar al hacer scroll
+      const navbar = document.querySelector('.navbar-transparent');
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 100) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Función para filtrar equipos
+      function filtrarEquipos() {
+        const textoBusqueda = document.getElementById('busqueda').value.toLowerCase().trim();
+        const grupos = document.querySelectorAll('.group-container');
+
+        grupos.forEach(grupo => {
+          let grupoVisible = false;
+          const nombreGrupo = grupo.querySelector('.group-header').textContent.toLowerCase();
+          const equipos = grupo.querySelectorAll('.team-card');
+
+          // Verificar si el texto de búsqueda coincide con el nombre del grupo
+          const coincideGrupo = nombreGrupo.includes(textoBusqueda);
+
+          equipos.forEach(equipo => {
+            const nombreEquipo = equipo.querySelector('.team-name').textContent.toLowerCase();
+            const centroEquipo = equipo.querySelector('.team-center').textContent.toLowerCase();
+
+            // Mostrar equipo si coincide con la búsqueda (nombre o grupo)
+            if (nombreEquipo.includes(textoBusqueda) || centroEquipo.includes(textoBusqueda) || coincideGrupo) {
+              equipo.style.display = 'flex';
+              grupoVisible = true;
+            } else {
+              equipo.style.display = 'none';
+            }
+          });
+
+          // Mostrar/ocultar grupo según si hay equipos visibles
+          grupo.style.display = grupoVisible ? 'block' : 'none';
+        });
+      }
+
+      // Event listener para el input de búsqueda
+      document.getElementById('busqueda').addEventListener('input', filtrarEquipos);
+
+      // Función para mostrar todos los equipos
+      function mostrarTodos() {
+        document.querySelectorAll('.group-container, .team-card').forEach(elemento => {
+          elemento.style.display = '';
+        });
+      }
+
+      // Si el campo de búsqueda está vacío, mostrar todos
+      document.getElementById('busqueda').addEventListener('keyup', function (e) {
+        if (this.value === '') {
+          mostrarTodos();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
